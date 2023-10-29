@@ -4,6 +4,7 @@ import glob
 import platform
 import psutil
 import subprocess
+import victory
 
 
 def menu():
@@ -62,23 +63,23 @@ def menu():
                 number_inner = input('Введите "1"если хотите копировать папку и "2" если хотите удалить файл: ')
                 if number_inner == '1':
                     name_dir = input('Введите название папки для копирования: ')
-                    new_name_dir=input('Введите названия новой папки: ')
+                    new_name_dir = input('Введите названия новой папки: ')
                     if os.path.exists(name_dir):
-                       shutil.copytree(name_dir,new_name_dir)
-                       break
+                        shutil.copytree(name_dir, new_name_dir)
+                        break
 
                 elif number_inner == '2':
                     name_file = input(r'Введите название файла, который надо копирования: ')
-                    new_name_file=input(r'Введите название нового файла для создания копии')
+                    new_name_file = input(r'Введите название нового файла для создания копии')
                     if os.path.exists(name_file):
-                        shutil.copy(name_file,new_name_file)
+                        shutil.copy(name_file, new_name_file)
                         break
 
         # Просмотреть содержимое рабочей директории
         elif number == '4':
-             dir_list=os.listdir()
-             print(dir_list)
-             break
+            dir_list = os.listdir()
+            print(dir_list)
+            break
 
 
         # Посмотреть только папку
@@ -118,7 +119,6 @@ def menu():
             # for i in new:
             #     print(i[2:-2])
 
-
             break
 
 
@@ -129,7 +129,8 @@ def menu():
 
         # Запуск игры викторина
         elif number == '9':
-            pass
+            victory.victory_game()
+            break
 
         # Мой банковский счет
         elif number == '10':
