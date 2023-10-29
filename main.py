@@ -1,10 +1,10 @@
 import os
 import shutil
-import glob
 import platform
 import psutil
-import subprocess
 import victory
+import my_bank_account
+
 
 
 def menu():
@@ -79,7 +79,7 @@ def menu():
         elif number == '4':
             dir_list = os.listdir()
             print(dir_list)
-            break
+            input()
 
 
         # Посмотреть только папку
@@ -92,7 +92,7 @@ def menu():
             files = [f for f in os.listdir('.') if os.path.isfile(f)]
             for f in files:
                 print(f)
-            break
+            input()
 
 
 
@@ -119,29 +119,40 @@ def menu():
             # for i in new:
             #     print(i[2:-2])
 
-            break
+            input()
 
 
         # Вывод информации о создателе программы
         elif number == '8':
             print('Программу создал Артем Химин')
-            break
+            input()
 
         # Запуск игры викторина
         elif number == '9':
             victory.victory_game()
-            break
+            input()
 
         # Мой банковский счет
         elif number == '10':
-            pass
+            my_bank_account.bank_account()
+            input()
 
         # Смена рабочей директории
         elif number == '11':
-            pass
+            print('Установите новую рабочую директорию')
+            print('ПРИМЕР: "D:\Python\console_file_manager"')
+            print(os.getcwd())
+            path= os.chdir(input())
+            print(os.getcwd())
+            dir_list = os.listdir()
+            print(dir_list)
+            input()
+
+
+
         # Выход
         elif number == '12':
-            pass
+            break
 
         else:
             print('Введено неверное значение')
