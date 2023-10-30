@@ -6,7 +6,6 @@ import victory
 import my_bank_account
 
 
-
 def menu():
     while True:
         print('Выберите нужный пункт меню и нажмете цифру:')
@@ -26,6 +25,7 @@ def menu():
         number = input('Номер цифры: ')
         # Создать (файл/папку)
         if number == '1':
+
             while True:
                 number_inner = input('Введите "1"если папку и "2" если файл: ')
                 if number_inner == '1':
@@ -142,7 +142,7 @@ def menu():
             print('Установите новую рабочую директорию')
             print('ПРИМЕР: "D:\Python\console_file_manager"')
             print(os.getcwd())
-            path= os.chdir(input())
+            path = os.chdir(input())
             print(os.getcwd())
             dir_list = os.listdir()
             print(dir_list)

@@ -9,25 +9,25 @@
 3. история покупок
 4. выход
 
-
-
-
-
-
-
-
-
 При выполнении задания можно пользоваться любыми средствами
 
 Для реализации основного меню можно использовать пример ниже или написать свой
 """
+
+
+def separator():
+    sep = '---------------------------'
+    #print('-'*27)
+    return sep
+
+
 def bank_account():
     account = 0
     addition = 0
     price = 0
 
     purchases = []
-    purchase_number=0
+    purchase_number = 0
 
     while True:
         print('1. пополнение счета')
@@ -64,40 +64,38 @@ def bank_account():
                 try:
 
                     price = int(input(f'Введите сумму покупки: '))
-                    if account >= price>0:
+                    if account >= price > 0:
 
-                        purchase_number+=1
-                        buy_name=input(f'Введите название покупки: ')
+                        purchase_number += 1
+                        buy_name = input(f'Введите название покупки: ')
                         print(f'Вы купили: "{buy_name}" на сумму: "{price}₽"')
                         account -= price
-                        purchases.append((purchase_number,buy_name,price))
-                        #print(purchases)
+                        purchases.append((purchase_number, buy_name, price))
+                        # print(purchases)
 
                         print(f'Теперь у Вас на счету: {account}₽')
 
-                    elif price>account:
+                    elif price > account:
                         print('У Вас не достаточно средств на счету!')
 
                     else:
                         print('Вы ввели не корректную сумму!')
-
 
                     break
 
                 except:
                     print('Вы ввели не корректную сумму!')
 
-
             '''3. история покупок
     выводим историю покупок пользователя (название и сумму)
     возвращаемся в основное меню'''
         elif choice == '3':
             print()
-            print('-'*27)
+            print(separator())
             print(' №    Название    Цена')
             for i in purchases:
                 print(f' {i[0]}  {i[1]}  {i[2]}₽')
-            print('-'*27)
+            print(separator())
             print()
 
             '''4. выход

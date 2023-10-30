@@ -2,7 +2,6 @@ import math
 from functions_for_the_test import division
 
 
-
 def test_filter_one():
     """
     Функция фильтрации
@@ -38,11 +37,14 @@ def test_sorted():
 def test_math_pi():
     assert math.pi == 3.141592653589793
 
+
 def test_math_sqrt():
     assert math.sqrt(16) == 4.0
 
+
 def test_math_pow():
-    assert math.pow(5,2) == 25.0
+    assert math.pow(5, 2) == 25.0
+
 
 def test_math_hypot():
-    assert math.hypot(4,3) == 5.0
+    assert math.hypot(4, 3) == 5.0

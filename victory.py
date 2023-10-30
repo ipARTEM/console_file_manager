@@ -20,7 +20,6 @@ def finish_text(text):
     return text_list
 
 
-
 answer = ''
 
 # print(type(famous_people))
@@ -128,5 +127,4 @@ def victory_game():
         if game != '1':
             break
 
-
-#victory_game()
+# victory_game()
