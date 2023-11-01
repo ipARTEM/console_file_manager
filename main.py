@@ -1,3 +1,4 @@
+import json
 import os
 import shutil
 import platform
@@ -13,14 +14,15 @@ def menu():
         print('2.  Удалить (файл/папку)')
         print('3.  Копировать (файл/папку)')
         print('4.  Просмотреть содержимое рабочей директории')
-        print('5.  Посмотреть только папку')
+        print('5.  Посмотреть только папки')
         print('6.  Посмотреть только файлы')
         print('7.  Просмотреть информацию об операционной системе')
         print('8.  Вывод информации о создателе программы')
         print('9.  Запуск игры викторина')
         print('10. Мой банковский счет')
         print('11. Смена рабочей директории')
-        print('12. Выход')
+        print('12. Сохранить содержимое рабочей директории в файл')
+        print('13. Выход')
 
         number = input('Номер цифры: ')
         # Создать (файл/папку)
@@ -82,9 +84,12 @@ def menu():
             input()
 
 
-        # Посмотреть только папку
+        # Посмотреть только папки
         elif number == '5':
-            pass
+            dir = [f for f in os.listdir() if os.path.isdir(f)]
+            for d in dir:
+                print(d)
+            input()
 
 
         # Посмотреть только файлы
@@ -148,10 +153,36 @@ def menu():
             print(dir_list)
             input()
 
+        # Сохранить содержимое рабочей директории в файл
+        elif number == '12':
+            print('Сохранить содержимое рабочей директории в файл: ')
+            dir_list = os.listdir()
+            print(dir_list)
+
+            name_file = 'listdir.txt'
+            data={'files':{},'dirs':{}}
+
+            print('********* files *********')
+            data['files'] = [f for f in os.listdir('.') if os.path.isfile(f)]
+            for f in data['files']:
+                print(f)
+
+            print('********* dirs *********')
+            data['dirs'] = [f for f in os.listdir() if os.path.isdir(f)]
+            for d in data['dirs']:
+                print(d)
+
+            # Сохранить в файл
+            with open(name_file, 'w', encoding='utf8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+
+            input()
+
+
 
 
         # Выход
-        elif number == '12':
+        elif number == '13':
             break
 
         else:
