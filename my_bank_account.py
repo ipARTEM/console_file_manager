@@ -13,16 +13,48 @@
 
 Для реализации основного меню можно использовать пример ниже или написать свой
 """
+import json
+import os.path
+import account_json
 
 
 def separator():
     sep = '---------------------------'
-    #print('-'*27)
+    # print('-'*27)
     return sep
 
 
 def bank_account():
-    account = 0
+    #storage = account_json.start_storage()
+
+    storage = {
+        'account': 0,
+        'history': [
+            #     {
+            #     'purchase_number': 0,
+            #     'price': 0,
+            #     'buy_name': ''
+            # }
+        ]
+    }
+    account_storage = 'account.json'
+    while True:
+        try:
+            # Чтение из файла
+            with open(account_storage, 'r', encoding='utf8') as f:
+                storage = json.load(f)
+                #print(storage)
+                break
+        except:
+            if os.path.exists(account_storage):
+                os.remove(account_storage)
+            # Сохранение в файл
+            with open(account_storage, 'a', encoding='utf8') as f:
+                json.dump(storage, f, ensure_ascii=False, indent=2)
+
+            input('Ошибка при работе с файлом')
+
+    account = int(storage['account'])
     addition = 0
     price = 0
 
@@ -70,8 +102,10 @@ def bank_account():
                         buy_name = input(f'Введите название покупки: ')
                         print(f'Вы купили: "{buy_name}" на сумму: "{price}₽"')
                         account -= price
-                        purchases.append((purchase_number, buy_name, price))
+                        purchases.append(purchase_number, buy_name, price)
                         # print(purchases)
+                        new_data = {'purchase_number': 1, 'price': 185, 'buy_name': 'шоколадка'}
+                        storage['history'].append(new_data)
 
                         print(f'Теперь у Вас на счету: {account}₽')
 
@@ -101,6 +135,12 @@ def bank_account():
             '''4. выход
     выход из программы'''
         elif choice == '4':
+
+            storage['account'] = account
+            # Сохранение в файл
+            with open(account_storage, 'a', encoding='utf8') as f:
+                json.dump(storage, f, ensure_ascii=False, indent=2)
+
             break
         else:
             print('Неверный пункт меню')

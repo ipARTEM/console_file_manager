@@ -140,7 +140,7 @@ def menu():
         # Смена рабочей директории
         elif number == '11':
             print('Установите новую рабочую директорию')
-            print('ПРИМЕР: "D:\Python\console_file_manager"')
+            print('ПРИМЕР: D:\\Python\\console_file_manager')
             print(os.getcwd())
             path = os.chdir(input())
             print(os.getcwd())
