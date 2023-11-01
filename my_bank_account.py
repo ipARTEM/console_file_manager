@@ -25,7 +25,7 @@ def separator():
 
 
 def bank_account():
-    #storage = account_json.start_storage()
+    # storage = account_json.start_storage()
 
     storage = {
         'account': 0,
@@ -43,7 +43,7 @@ def bank_account():
             # Чтение из файла
             with open(account_storage, 'r', encoding='utf8') as f:
                 storage = json.load(f)
-                #print(storage)
+                # print(storage)
                 break
         except:
             if os.path.exists(account_storage):
@@ -79,6 +79,11 @@ def bank_account():
                 try:
                     account += int(input(f'На какую сумму хотите пополнить счет: '))
                     print(f'Теперь у Вас на счету: {account}₽')
+
+                    storage['account'] = account
+                    # Сохранение в файл
+                    with open(account_storage, 'w', encoding='utf8') as f:
+                        json.dump(storage, f, ensure_ascii=False, indent=2)
                     break
                 except:
                     print('Вы ввели не корректную сумму!')
@@ -97,17 +102,36 @@ def bank_account():
 
                     price = int(input(f'Введите сумму покупки: '))
                     if account >= price > 0:
+                        # print('test1')
+                        # print(storage['account'])
 
+                        try:
+                            purchase_number = storage['history'][-1]['purchase_number']
+                        except:
+                            purchase_number=0
+
+                        # print(purchase_number)
+
+                        # for item in storage['history']:
+                        #     print(f' {item['purchase_number']}')
+
+                        # print('test2')
                         purchase_number += 1
                         buy_name = input(f'Введите название покупки: ')
                         print(f'Вы купили: "{buy_name}" на сумму: "{price}₽"')
+
                         account -= price
-                        purchases.append(purchase_number, buy_name, price)
+
+
+                        # purchases.append(purchase_number, price, buy_name)
+
                         # print(purchases)
-                        new_data = {'purchase_number': 1, 'price': 185, 'buy_name': 'шоколадка'}
+
+                        new_data = {'purchase_number': purchase_number, 'price': price, 'buy_name': buy_name}
                         storage['history'].append(new_data)
 
                         print(f'Теперь у Вас на счету: {account}₽')
+                        break
 
                     elif price > account:
                         print('У Вас не достаточно средств на счету!')
@@ -127,8 +151,19 @@ def bank_account():
             print()
             print(separator())
             print(' №    Название    Цена')
-            for i in purchases:
-                print(f' {i[0]}  {i[1]}  {i[2]}₽')
+
+            # Без сохранения в файл
+            # for i in purchases:
+            #     print(f' {i[0]}  {i[1]}  {i[2]}₽')
+            # print(storage['account'])
+
+            for item in storage['history']:
+                print(f' {item['purchase_number']}   {item['buy_name']}   {item['price']}₽')
+
+
+
+
+
             print(separator())
             print()
 
@@ -138,7 +173,7 @@ def bank_account():
 
             storage['account'] = account
             # Сохранение в файл
-            with open(account_storage, 'a', encoding='utf8') as f:
+            with open(account_storage, 'w', encoding='utf8') as f:
                 json.dump(storage, f, ensure_ascii=False, indent=2)
 
             break
