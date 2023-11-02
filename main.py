@@ -5,8 +5,10 @@ import platform
 import psutil
 import victory
 import my_bank_account
+from decorator import save_call_to_file
 
 
+@save_call_to_file
 def menu():
     while True:
         print('Выберите нужный пункт меню и нажмете цифру:')
@@ -34,6 +36,7 @@ def menu():
                     name_dir = input('Введите название папки: ')
                     if not os.path.exists(name_dir):
                         os.mkdir(name_dir)
+
                         break
                 elif number_inner == '2':
                     name_file = input(r'Введите название файла: ')
@@ -82,21 +85,29 @@ def menu():
             dir_list = os.listdir()
             print(dir_list)
             input()
-
-
         # Посмотреть только папки
         elif number == '5':
-            dir = [f for f in os.listdir() if os.path.isdir(f)]
-            for d in dir:
-                print(d)
+
+            # Тернарный оператор
+            dirs = [f for f in os.listdir() if os.path.isdir(f)]
+            # for d in dirs:
+            #     print(d)
+
+            # Через генератор
+            [print(d) for d in dirs]
             input()
 
 
         # Посмотреть только файлы
         elif number == '6':
+            # Тернарный оператор
             files = [f for f in os.listdir('.') if os.path.isfile(f)]
-            for f in files:
-                print(f)
+            # for f in files:
+            #     print(f)
+            print('*' * 10)
+
+            # Через генератор
+            [print(f) for f in files]
             input()
 
 
@@ -134,11 +145,13 @@ def menu():
 
         # Запуск игры викторина
         elif number == '9':
+
             victory.victory_game()
             input()
 
         # Мой банковский счет
         elif number == '10':
+
             my_bank_account.bank_account()
             input()
 
@@ -160,7 +173,7 @@ def menu():
             print(dir_list)
 
             name_file = 'listdir.txt'
-            data={'files':{},'dirs':{}}
+            data = {'files': {}, 'dirs': {}}
 
             print('********* files *********')
             data['files'] = [f for f in os.listdir('.') if os.path.isfile(f)]
