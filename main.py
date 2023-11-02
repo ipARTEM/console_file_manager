@@ -1,11 +1,14 @@
+import json
 import os
 import shutil
 import platform
 import psutil
 import victory
 import my_bank_account
+from decorator import save_call_to_file
 
 
+@save_call_to_file
 def menu():
     while True:
         print('Выберите нужный пункт меню и нажмете цифру:')
@@ -13,14 +16,15 @@ def menu():
         print('2.  Удалить (файл/папку)')
         print('3.  Копировать (файл/папку)')
         print('4.  Просмотреть содержимое рабочей директории')
-        print('5.  Посмотреть только папку')
+        print('5.  Посмотреть только папки')
         print('6.  Посмотреть только файлы')
         print('7.  Просмотреть информацию об операционной системе')
         print('8.  Вывод информации о создателе программы')
         print('9.  Запуск игры викторина')
         print('10. Мой банковский счет')
         print('11. Смена рабочей директории')
-        print('12. Выход')
+        print('12. Сохранить содержимое рабочей директории в файл')
+        print('13. Выход')
 
         number = input('Номер цифры: ')
         # Создать (файл/папку)
@@ -32,6 +36,7 @@ def menu():
                     name_dir = input('Введите название папки: ')
                     if not os.path.exists(name_dir):
                         os.mkdir(name_dir)
+
                         break
                 elif number_inner == '2':
                     name_file = input(r'Введите название файла: ')
@@ -80,18 +85,29 @@ def menu():
             dir_list = os.listdir()
             print(dir_list)
             input()
-
-
-        # Посмотреть только папку
+        # Посмотреть только папки
         elif number == '5':
-            pass
+
+            # Тернарный оператор
+            dirs = [f for f in os.listdir() if os.path.isdir(f)]
+            # for d in dirs:
+            #     print(d)
+
+            # Через генератор
+            [print(d) for d in dirs]
+            input()
 
 
         # Посмотреть только файлы
         elif number == '6':
+            # Тернарный оператор
             files = [f for f in os.listdir('.') if os.path.isfile(f)]
-            for f in files:
-                print(f)
+            # for f in files:
+            #     print(f)
+            print('*' * 10)
+
+            # Через генератор
+            [print(f) for f in files]
             input()
 
 
@@ -129,11 +145,13 @@ def menu():
 
         # Запуск игры викторина
         elif number == '9':
+
             victory.victory_game()
             input()
 
         # Мой банковский счет
         elif number == '10':
+
             my_bank_account.bank_account()
             input()
 
@@ -148,10 +166,36 @@ def menu():
             print(dir_list)
             input()
 
+        # Сохранить содержимое рабочей директории в файл
+        elif number == '12':
+            print('Сохранить содержимое рабочей директории в файл: ')
+            dir_list = os.listdir()
+            print(dir_list)
+
+            name_file = 'listdir.txt'
+            data = {'files': {}, 'dirs': {}}
+
+            print('********* files *********')
+            data['files'] = [f for f in os.listdir('.') if os.path.isfile(f)]
+            for f in data['files']:
+                print(f)
+
+            print('********* dirs *********')
+            data['dirs'] = [f for f in os.listdir() if os.path.isdir(f)]
+            for d in data['dirs']:
+                print(d)
+
+            # Сохранить в файл
+            with open(name_file, 'w', encoding='utf8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+
+            input()
+
+
 
 
         # Выход
-        elif number == '12':
+        elif number == '13':
             break
 
         else:

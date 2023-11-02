@@ -1,4 +1,5 @@
 import random
+from decorator import save_call_to_file
 
 famous_people = {
     'Бернар Арно': '05.03.1949',
@@ -71,7 +72,7 @@ days = {
     '31': 'тридцать первого',
 }
 
-
+#@save_call_to_file
 def victory_game():
     counter = 0
     while True:
@@ -126,5 +127,7 @@ def victory_game():
 
         if game != '1':
             break
+
+
 
 # victory_game()

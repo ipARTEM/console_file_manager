@@ -16,6 +16,7 @@
 import json
 import os.path
 import account_json
+from decorator import save_call_to_file
 
 
 def separator():
@@ -24,6 +25,7 @@ def separator():
     return sep
 
 
+#@save_call_to_file
 def bank_account():
     # storage = account_json.start_storage()
 
@@ -108,7 +110,7 @@ def bank_account():
                         try:
                             purchase_number = storage['history'][-1]['purchase_number']
                         except:
-                            purchase_number=0
+                            purchase_number = 0
 
                         # print(purchase_number)
 
@@ -121,7 +123,6 @@ def bank_account():
                         print(f'Вы купили: "{buy_name}" на сумму: "{price}₽"')
 
                         account -= price
-
 
                         # purchases.append(purchase_number, price, buy_name)
 
@@ -159,10 +160,6 @@ def bank_account():
 
             for item in storage['history']:
                 print(f' {item['purchase_number']}   {item['buy_name']}   {item['price']}₽')
-
-
-
-
 
             print(separator())
             print()
